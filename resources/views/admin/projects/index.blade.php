@@ -53,6 +53,10 @@
           <td>
             <input type="text" value="{{ $project->title }}">
           </td>
+            {{dump($projects->type->name)}}
+          <td>
+
+          </td>
 
           {{-- BOTTONE DI EDIT --}}
           <td class="d-flex ">
