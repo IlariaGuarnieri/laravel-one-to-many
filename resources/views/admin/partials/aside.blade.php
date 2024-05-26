@@ -4,7 +4,13 @@
             <li>
                 <a href="{{ route('admin.Project.index') }}">
                     <i class="fa-solid fa-list"></i>
-                    Elenco progetti
+                    Progetti
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.Projects.create') }}">
+                    <i class="fa-solid fa-list"></i>
+                    Nuovo progetto
                 </a>
             </li>
             <li>

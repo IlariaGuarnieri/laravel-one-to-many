@@ -18,6 +18,7 @@
                 <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   {{ Auth::user()->name }}
                 </a>
+
                 <ul class="dropdown-menu">
                   <form action="{{ route('logout') }}" method="POST">
                     @csrf

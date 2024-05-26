@@ -24,28 +24,34 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+
+    // VERIFICO SE ESITE GIA UN PROGETTO CON LO STESSO TITOLO
+    public function store(Request $request)  //php artisan make:request ProjectRequest
     {
-        //qui atterro da index.blade.php riga 7
-        //prima di inserire nuovo proj verifico che non ci sia gia
-        //se esiste ritorno a inde con mess di errore
-        //se non esiste salvo ritorno a index con messaggio di successo
-        $exists = Project::where('title', $request->name)->first();
-        if($exists){
+        // qui atterro da index.blade.php riga 7
+        // prima di inserire nuovo proj verifico che non ci sia gia
+        // se esiste ritorno a inde con mess di errore
+        // se non esiste salvo ritorno a index con messaggio di successo
+        $exists = Project::where('title', $request->title)->first();
+        if ($exists) {
             return redirect()->route('admin.Project.index')->with('error', 'Progetto gia esistente');
-        }else{
+        } else {
             $new = new Project();
-            $new->title = $request->name;
-            $new->slug = Help::generateSlug($new->name, Project::class);
+            $new->title = $request->title;
+            $new->slug = Help::generateSlug($new->title, Project::class);
             $new->save();
-            return redirect()->route('admin.Project.index')->with('success', 'Progetto aggiunto');
+            return redirect()->route('admin.Project.index')->with('success', 'Progetto aggiunto con successo!');
         }
+        // $form_data = $request->all();
+        // $form_data['slug'] = Help::generateSlug();
+
+
     }
 
     /**
@@ -69,14 +75,36 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        $val_data = $request->validate(
+            [
+                'title' => 'required|min:2|max:20'
+            ],
+            [
+                'title.required' => 'devi inserire il nome',
+                'title.min' => 'devi inserire :min caratteri',
+                'title.max' => 'devi inserire :max caratteri'
+            ]
+        );
 
+        $exists = Project::where('title', $request->title)->first();
+        if ($exists) {
+            return redirect()->route('admin.Project.index')->with('error', 'Progetto gia esistente');
+        } else {
+            $val_data['slug'] = Help::generateSlug($request->title, Project::class);
+            $project->update($val_data);
+
+            return redirect()->route('admin.Project.index')->with('success', 'Progetto aggiunto');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Project $project)
     {
-        //
+        if($project){
+            $project->delete();
+            return redirect()->route('admin.Project.index')->with('success', 'Progetto eliminato correttamente');
+        }
     }
 }
