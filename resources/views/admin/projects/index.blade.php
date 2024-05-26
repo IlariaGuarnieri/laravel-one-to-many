@@ -38,6 +38,7 @@
       <tr>
         <th scope="col">ID PROGETTO</th>
         <th scope="col">NOME PROGETTO</th>
+        <th scope="col">TYPE</th>
         <th scope="col">AZIONE</th>
       </tr>
     </thead>
@@ -53,10 +54,11 @@
           <td>
             <input type="text" value="{{ $project->title }}">
           </td>
-            {{dump($projects->type->name)}}
-          <td>
 
+          <td>
+            {{ dump($project->type) }}
           </td>
+
 
           {{-- BOTTONE DI EDIT --}}
           <td class="d-flex ">

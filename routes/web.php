@@ -31,7 +31,7 @@ Route::middleware(['auth', 'verified'])
     // qui inseriamo tutte le rotte delle crud
     Route::resource('Project', ProjectController::class);
     Route::resource('Technology', TechnologyController::class);
-    Route::resource('Projects', TypeController::class);
+    Route::resource('types', TypeController::class);
   });
 
 Route::get('/dashboard', function () {

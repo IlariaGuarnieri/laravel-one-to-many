@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.Projects.create') }}">
+                <a href="{{ route('admin.Project.create') }}">
                     <i class="fa-solid fa-list"></i>
                     Nuovo progetto
                 </a>
@@ -20,7 +20,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{route('admin.types.index')}}">
                     <i class="fa-solid fa-code"></i>
                     Tipologie
                 </a>
