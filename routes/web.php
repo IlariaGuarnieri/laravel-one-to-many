@@ -32,6 +32,9 @@ Route::middleware(['auth', 'verified'])
     Route::resource('Project', ProjectController::class);
     Route::resource('Technology', TechnologyController::class);
     Route::resource('types', TypeController::class);
+
+    // rotte custom
+
   });
 
 Route::get('/dashboard', function () {

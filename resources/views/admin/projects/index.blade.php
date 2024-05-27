@@ -56,7 +56,7 @@
           </td>
 
           <td>
-            {{ dump($project->type) }}
+            {{$project->type }}
           </td>
 
 
@@ -68,10 +68,12 @@
             </button>
 
             {{-- BOTTONE DI DELETE --}}
-            <form action="{{ route('admin.Project.destroy', $project->id) }}" method="POST">
+            <form action="{{ route('admin.Project.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare il progetto?')">
               @csrf
               @method('DELETE')
-              <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+              <button type="submit" class="btn btn-danger">
+              <i class="fa-solid fa-trash"></i>
+              </button>
             </form>
 
           </td>

@@ -33,16 +33,16 @@ class TypeController extends Controller
     public function store(TypeRequest $request)
     {
         $form_data = $request->all();
-        $exist = Type::where('name', $form_data['name'])->first();
+        $exist = Type::where('title', $form_data['title'])->first();
         if ($exist) {
             return redirect()->route('admin.types.create')->with('error', 'Nome del tipo già esiste');
         } else {
             $new_type = new Type();
-            $form_data['slug'] = Help::generateSlug($form_data['name'], Type::class);
-            //? Riempio e salvo
+            $form_data['slug'] = Help::generateSlug($form_data['title'], Type::class);
+            // Riempio e salvo
             $new_type->fill($form_data);
             $new_type->save();
-            //? Ridireziono
+            // Ridireziono
             return redirect()->route('admin.types.index')->with('success', 'Tipo aggiunto correttamente!');
         }
     }
@@ -69,21 +69,23 @@ class TypeController extends Controller
     public function update(TypeRequest $request, Type $type)
     {
         $form_data = $request->all();
-        if ($form_data['name'] === $type->name) {
+        if ($form_data['title'] === $type->title) {
             $form_data['slug'] = $type->slug;
         } else {
-            $form_data['slug'] = Help::generateSlug($form_data['name'], Type::class);
+            $form_data['slug'] = Help::generateSlug($form_data['title'], Type::class);
         }
         $type->update($form_data);
-        return redirect()->route('admin.types.index', $type);
+        return redirect()->route('admin.types.index', $type)->with('success', 'Tipo aggiornato correttamente!');;
     }
 
     /**
      * Remove the specified resource from storage.
      */
+
+    //  CANCELLAZIONE TIPI
     public function destroy(Type $type)
     {
         $type->delete();
-        return redirect()->route('admin.types.index')->with('deleted', 'Il tipo è stato cancellato');
+        return redirect()->route('admin.types.index')->with('error', 'Il tipo è stato cancellato');
     }
 }

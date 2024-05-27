@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Http\Requests\ProjectRequest;
 use App\Functions\Helper as Help;
 
 class ProjectController extends Controller
@@ -32,7 +33,7 @@ class ProjectController extends Controller
      */
 
     // VERIFICO SE ESITE GIA UN PROGETTO CON LO STESSO TITOLO
-    public function store(Request $request)  //php artisan make:request ProjectRequest
+    public function store(ProjectRequest $request)  //php artisan make:request ProjectRequest
     {
         // qui atterro da index.blade.php riga 7
         // prima di inserire nuovo proj verifico che non ci sia gia
@@ -73,7 +74,7 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(ProjectRequest $request, Project $project)
     {
         $val_data = $request->validate(
             [
@@ -102,9 +103,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        if($project){
             $project->delete();
             return redirect()->route('admin.Project.index')->with('success', 'Progetto eliminato correttamente');
-        }
     }
 }
