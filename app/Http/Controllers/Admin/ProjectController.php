@@ -45,6 +45,7 @@ class ProjectController extends Controller
         } else {
             $new = new Project();
             $new->title = $request->title;
+
             $new->slug = Help::generateSlug($new->title, Project::class);
             $new->save();
             return redirect()->route('admin.Project.index')->with('success', 'Progetto aggiunto con successo!');

@@ -56,7 +56,7 @@
           </td>
 
           <td>
-            {{$project->type }}
+            {{$project->type->title }}
           </td>
 
 

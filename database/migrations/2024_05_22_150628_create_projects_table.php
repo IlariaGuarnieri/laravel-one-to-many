@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 100);
             $table->string('slug', 100)->unique();
-            $table->string('type', 100);
+            // $table->string('type')->nullable();
               //importante per la seo e l'indicizzazione, stare attenti a dare un titolo che serva per la seo
             // $table->string('description', 500)->nullable();  //nullable() vuol dire che può non esserci //se voglio rimettere descriptio devo fare php artisan migrate:refresh
 

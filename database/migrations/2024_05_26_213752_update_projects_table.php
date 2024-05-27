@@ -1,3 +1,5 @@
+<!-- QUESTA è LA MIGRAZIONE CHE MI SERVE PER CREARE FOREIGN KEY -->
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -14,11 +16,11 @@ return new class extends Migration
         Schema::table('projects', function (Blueprint $table) {
             //1.creo la colonna della foreignkey
             $table->unsignedBigInteger('type_id')->nullable()->after('id');
+
             //2. assegno la fk alla colonna creata
-            $table->foreign('type_id')
-                    ->references('id')
-                    ->on('types')
-            //3.
+            $table->foreign('type_id')  //creo fk
+                    ->references('id')  //riferimento a id
+                    ->on('types')       //in types
                     ->onDelete('set null');
 
         });
@@ -30,10 +32,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('projects', function (Blueprint $table) {
-            //4. elimino fk
+            //4. prima elimino fk
             $table->dropForeign(['type_id']);  //elimino in base al nome della colonna della fk
 
-            //5.si elimina la colonna
+            //5. dopo si elimina la colonna
             $table->dropColumn('type_id');
         });
     }
